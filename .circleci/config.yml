@@ -38,6 +38,32 @@ jobs:
       - docker/push:
           image: clouditor/clouditor
           tag: latest
+  build_and_push_eusec:
+    docker:
+      - image: circleci/openjdk:11
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Install API packages
+          command: |
+            git clone https://github.com/eu-sec/continuous-auditing-api-java-client.git && cd continuous-auditing-api-java-client && ./gradlew install && cd -
+      - run:
+          name: Gradle build
+          command: |
+            ./gradlew --parallel docker jacocoTestReport sonarqube \
+            -Dsonar.projectKey=clouditor_clouditor \
+            -Dsonar.organization=clouditor \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=$SONAR_TOKEN
+      - run:
+          name: Tag EU-SEC Pilot Build
+          command: |
+            docker tag clouditor/clouditor clouditor/clouditor:eu-sec
+      - docker/check
+      - docker/push:
+          image: clouditor/clouditor
+          tag: eu-sec
   build:
     docker:
       - image: circleci/openjdk:11
@@ -71,7 +97,14 @@ workflows:
           context: org-global
           filters:
             branches:
-              only: master
+              only:
+              - master
+      - build_and_push_eusec:
+          context: org-global
+          filters:
+            branches:
+              only:
+                - eu-sec
       - build:
           context: org-global
           filters:
