@@ -47,7 +47,10 @@ jobs:
       - run:
           name: Install API packages
           command: |
-            git clone https://github.com/eu-sec/continuous-auditing-api-java-client.git && cd continuous-auditing-api-java-client && ./gradlew install && cd -
+            git clone https://github.com/eu-sec/continuous-auditing-api-java-client.git && \
+            cd continuous-auditing-api-java-client && \
+            ./gradlew install && cd - && \
+            rm -rf continuous-auditing-api-java-client
       - run:
           name: Gradle build
           command: |
