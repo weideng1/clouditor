@@ -41,6 +41,8 @@ jobs:
   build_and_push_eusec:
     docker:
       - image: circleci/openjdk:11
+    environment:
+      GRADLE_OPTS: -Xmx2048m -Dorg.gradle.daemon=false
     steps:
       - checkout
       - setup_remote_docker
