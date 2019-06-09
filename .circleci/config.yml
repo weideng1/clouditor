@@ -109,4 +109,6 @@ workflows:
           context: org-global
           filters:
             branches:
-              ignore: master
+              ignore:
+              - master
+              - eu-sec
