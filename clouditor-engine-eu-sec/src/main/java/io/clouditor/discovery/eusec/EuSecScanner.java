@@ -26,21 +26,23 @@
  * You should have received a copy of the GNU General Public License
  * long with Clouditor Community Edition.  If not, see <https://www.gnu.org/licenses/>
  */
-apply plugin: 'org.owasp.dependencycheck'
-apply plugin: "application"
 
-mainClassName = "io.clouditor.EngineApplication"
+package io.clouditor.discovery.eusec;
 
-applicationName = "engine"
+import io.clouditor.discovery.Scanner;
+import java.io.IOException;
 
-dependencyCheck {
-    failBuildOnCVSS = 0
-    suppressionFile = "${project.rootProject.projectDir}/suppression.xml"
-}
+public abstract class EuSecScanner<T extends AuditObject> extends Scanner<EuSecClients, T> {
 
-// Project dependencies
-dependencies {
-    compile project(":clouditor-engine-aws")
-    compile project(":clouditor-engine-azure")
-    compile project(":clouditor-engine-eu-sec")
+  EuSecScanner() {
+    super(null, AuditObject::getUniqueId, AuditObject::getName);
+  }
+
+  @Override
+  public void init() throws IOException {
+    super.init();
+
+    this.api = new EuSecClients();
+    this.api.init();
+  }
 }

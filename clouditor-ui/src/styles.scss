@@ -68,7 +68,7 @@ html {
 }
 
 .clouditor-loading {
-  margin:auto;
+  margin: auto;
   max-width: 100%;
 }
 
@@ -76,11 +76,13 @@ mat-selection-list a {
   text-decoration: none;
 }
 
-.mat-card-content, .mat-card-header .mat-card-title {
+.mat-card-content,
+.mat-card-header .mat-card-title {
   font-size: 1.3em;
 }
 
-.mat-card-content, .mat-card-header .mat-card-subtitle {
+.mat-card-content,
+.mat-card-header .mat-card-subtitle {
   font-size: 1em;
 }
 
@@ -96,7 +98,7 @@ mat-selection-list a {
 
 #navbarNavDropdown {
   text-align: center;
-} 
+}
 
 #cal-heatmap {
   float: right;
@@ -107,15 +109,19 @@ mat-selection-list a {
 }
 
 .azure {
-  color: #008AD7;
+  color: #008ad7;
 }
 
 .aws {
-  color: #FF9900;
+  color: #ff9900;
 }
 
 .salesforce {
   color: #1798c1;
+}
+
+.eu-sec {
+  color: #02339a;
 }
 
 .pointer {

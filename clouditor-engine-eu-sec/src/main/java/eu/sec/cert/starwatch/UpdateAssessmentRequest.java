@@ -26,21 +26,64 @@
  * You should have received a copy of the GNU General Public License
  * long with Clouditor Community Edition.  If not, see <https://www.gnu.org/licenses/>
  */
-apply plugin: 'org.owasp.dependencycheck'
-apply plugin: "application"
 
-mainClassName = "io.clouditor.EngineApplication"
+package eu.sec.cert.starwatch;
 
-applicationName = "engine"
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 
-dependencyCheck {
-    failBuildOnCVSS = 0
-    suppressionFile = "${project.rootProject.projectDir}/suppression.xml"
-}
+public class UpdateAssessmentRequest {
 
-// Project dependencies
-dependencies {
-    compile project(":clouditor-engine-aws")
-    compile project(":clouditor-engine-azure")
-    compile project(":clouditor-engine-eu-sec")
+  public String getAssessmentId() {
+    return assessmentId;
+  }
+
+  public void setAssessmentId(String assessmentId) {
+    this.assessmentId = assessmentId;
+  }
+
+  public String getObjectiveId() {
+    return objectiveId;
+  }
+
+  public void setObjectiveId(String objectiveId) {
+    this.objectiveId = objectiveId;
+  }
+
+  public boolean isResult() {
+    return result;
+  }
+
+  public void setResult(boolean result) {
+    this.result = result;
+  }
+
+  public String getAssessedAt() {
+    return assessedAt;
+  }
+
+  public void setAssessedAt(String assessedAt) {
+    this.assessedAt = assessedAt;
+  }
+
+  public List<String> getEvidence() {
+    return evidence;
+  }
+
+  public void setEvidence(List<String> evidence) {
+    this.evidence = evidence;
+  }
+
+  @JsonProperty("assessment_id")
+  private String assessmentId;
+
+  @JsonProperty("objective_id")
+  private String objectiveId;
+
+  private boolean result;
+
+  @JsonProperty("assessed_at")
+  private String assessedAt;
+
+  private List<String> evidence;
 }

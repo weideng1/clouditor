@@ -26,21 +26,18 @@
  * You should have received a copy of the GNU General Public License
  * long with Clouditor Community Edition.  If not, see <https://www.gnu.org/licenses/>
  */
-apply plugin: 'org.owasp.dependencycheck'
-apply plugin: "application"
 
-mainClassName = "io.clouditor.EngineApplication"
+package eu.sec.cert.evidence;
 
-applicationName = "engine"
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-dependencyCheck {
-    failBuildOnCVSS = 0
-    suppressionFile = "${project.rootProject.projectDir}/suppression.xml"
-}
+public class Owner {
 
-// Project dependencies
-dependencies {
-    compile project(":clouditor-engine-aws")
-    compile project(":clouditor-engine-azure")
-    compile project(":clouditor-engine-eu-sec")
+  @JsonProperty private String principal;
+  @JsonProperty private String type;
+
+  public Owner(@JsonProperty("principal") String principal, @JsonProperty("type") String type) {
+    this.principal = principal;
+    this.type = type;
+  }
 }

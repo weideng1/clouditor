@@ -26,21 +26,45 @@
  * You should have received a copy of the GNU General Public License
  * long with Clouditor Community Edition.  If not, see <https://www.gnu.org/licenses/>
  */
-apply plugin: 'org.owasp.dependencycheck'
-apply plugin: "application"
 
-mainClassName = "io.clouditor.EngineApplication"
+package io.clouditor.credentials;
 
-applicationName = "engine"
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import java.io.IOException;
 
-dependencyCheck {
-    failBuildOnCVSS = 0
-    suppressionFile = "${project.rootProject.projectDir}/suppression.xml"
-}
+@JsonTypeName("EU-SEC Audit API")
+public class EuSecAccount extends CloudAccount<EuSecAccount> {
 
-// Project dependencies
-dependencies {
-    compile project(":clouditor-engine-aws")
-    compile project(":clouditor-engine-azure")
-    compile project(":clouditor-engine-eu-sec")
+  private String url;
+
+  /** Password for HTTP Basic Authentication. */
+  private String password;
+
+  public static EuSecAccount discover() throws IOException {
+    throw new IOException("EU-SEC Audit API can not be auto-discovered.");
+  }
+
+  @Override
+  public void validate() {}
+
+  @Override
+  public EuSecAccount resolveCredentials() {
+    return this;
+  }
+
+  public String getUrl() {
+    return this.url;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public void setUrl(String url) {
+    this.url = url;
+  }
 }

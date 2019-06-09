@@ -26,21 +26,28 @@
  * You should have received a copy of the GNU General Public License
  * long with Clouditor Community Edition.  If not, see <https://www.gnu.org/licenses/>
  */
-apply plugin: 'org.owasp.dependencycheck'
-apply plugin: "application"
 
-mainClassName = "io.clouditor.EngineApplication"
+package io.clouditor.discovery.eusec;
 
-applicationName = "engine"
+public abstract class AuditObject {
 
-dependencyCheck {
-    failBuildOnCVSS = 0
-    suppressionFile = "${project.rootProject.projectDir}/suppression.xml"
-}
+  String id;
+  String scope;
 
-// Project dependencies
-dependencies {
-    compile project(":clouditor-engine-aws")
-    compile project(":clouditor-engine-azure")
-    compile project(":clouditor-engine-eu-sec")
+  public String getUniqueId() {
+    return "audit:" + this.scope + "/" + this.id;
+  }
+
+  public String getId() {
+    return this.id;
+  }
+
+  public String getScope() {
+    return this.scope;
+  }
+
+  public String getName() {
+    // for now, these objects do not have a real name, so we return the id
+    return this.id;
+  }
 }
